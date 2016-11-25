@@ -26,6 +26,6 @@ https://github.com/torvalds/linux/commit/68e24113457e437b1576670f2419b77ed0531e9
 
 Download source code
 --------------------
-So for the people that need persee 3.4.x compatibility (specific ARM boards with closed-source MALI drivers):
+So for the people that need per se 3.4.x compatibility (specific ARM boards with closed-source MALI drivers):
 
 [here is the changed source using the 3.4.x usb-serial API](xr_usb_serial_common-linuxkernel-3.4.x).
