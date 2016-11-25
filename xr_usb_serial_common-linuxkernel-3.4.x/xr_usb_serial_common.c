@@ -23,7 +23,7 @@
  *	XR21B1420/1422/1424
  *	XR22801/802/804
  *
- * The driver has been tested on various kernel versions from 2.6.18 to 3.4.x.
+ * The driver will only work on kernel 3.4.x.
  * There is a different driver available from www.exar.com for kernel versions 3.6.x and newer.
  *
  * ChangeLog:

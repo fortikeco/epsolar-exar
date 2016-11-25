@@ -8,7 +8,7 @@ This driver will work with any USB UART function in these Exar devices:
 	XR21B1420/1422/1424
 	XR22801/802/804
 
-The source code has been tested on Linux kernels 2.6.18 to 3.4.x.  This may also work with other kernels.  
+The source code is specific for kernel 3.4.x.  This may not work with other kernels.  
 
 
 Installation
