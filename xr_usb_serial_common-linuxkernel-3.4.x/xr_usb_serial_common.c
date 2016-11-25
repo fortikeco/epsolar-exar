@@ -142,7 +142,6 @@ static struct usb_driver xr_usb_serial_driver = {
         .probe         = usb_serial_probe,
         .disconnect    = xr_usb_serial_disconnect,
         .id_table      = id_table,
-        .no_dynamic_id = 1,
 };
 
 
@@ -1530,7 +1529,7 @@ static struct usb_serial_driver xr_usb_serial_device = {
                 .name =     "xr_usb_serial",
         },
 #if LINUX_VERSION_CODE > KERNEL_VERSION(2, 6, 37)
-		.usb_driver	    = &xr_usb_serial_driver,
+//		.usb_driver	    = &xr_usb_serial_driver,
 #endif
         .description        = "EXAR USB serial port",
         .id_table           = id_table,
@@ -1558,34 +1557,25 @@ static struct usb_serial_driver xr_usb_serial_device = {
 };
 
 
+static struct usb_serial_driver* const serial_drivers[] = {
+ &xr_usb_serial_device, NULL
+};
+
 /* Functions used by new usb-serial code. */
 static int __init xr_usb_serial_init(void)
 {
         int retval;
-        retval = usb_serial_register(&xr_usb_serial_device);
-        if (retval)
-                goto failed_device_register;
-
-
-        retval = usb_register(&xr_usb_serial_driver);
-        if (retval)
-                goto failed_driver_register;
-
-        printk(KERN_INFO DRIVER_DESC ": " DRIVER_VERSION "\n");
-
-        return 0;
-
-failed_driver_register:
-        usb_serial_deregister(&xr_usb_serial_device);
-failed_device_register:
+        retval = usb_serial_register_drivers(&xr_usb_serial_device, serial_drivers);
+        if (retval == 0) {
+            printk(KERN_INFO DRIVER_DESC ": " DRIVER_VERSION "\n");
+        }
         return retval;
 }
 
 
 static void __exit xr_usb_serial_exit(void)
 {
-        usb_deregister(&xr_usb_serial_driver);
-        usb_serial_deregister(&xr_usb_serial_device);
+        usb_serial_deregister_drivers(&xr_usb_serial_device, serial_drivers);
 }
 
 module_init(xr_usb_serial_init);
